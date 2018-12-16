@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, TakePhoto.class);
+                Intent intent = new Intent(MainActivity.this, TakePhotoActivity.class);
                 startActivity(intent);
             }
         });
