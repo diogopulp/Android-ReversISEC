@@ -26,4 +26,10 @@ public class Board {
         return board[row][col];
     }
 
+    public void addPiece(int row, int col, int pieceID){
+
+        board[row][col].setId(pieceID);
+
+    }
+
 }

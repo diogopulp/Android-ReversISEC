@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.example.diogosantos.reversisec.R;
+
 public class Game extends BaseAdapter {
 
     private static final int TAMROW = 8;
@@ -170,6 +172,24 @@ public class Game extends BaseAdapter {
             col = 7;
 
         return col;
+
+    }
+
+    public boolean placePiece(int position){
+
+        int row = -1;
+        int col = -1;
+
+        row = this.positionToRow(position);
+        col = this.positionToCol(position);
+
+        if (col >= 0 && col <= 8 && row != -1) // Check valid input
+            return false;
+
+        board.addPiece(row,col,R.drawable.ic_reversi_black);
+
+        return true;
+
 
     }
 
