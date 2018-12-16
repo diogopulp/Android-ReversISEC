@@ -9,7 +9,6 @@ public class Board {
 
     public Board()
     {
-
         board = new Location[NUM_ROWS][NUM_COLS];
 
         for (int row = 0; row < board.length; row++)
@@ -20,6 +19,11 @@ public class Board {
                 board[row][col] = tempLoc;
             }
         }
+    }
+
+    public Location get(int row, int col)
+    {
+        return board[row][col];
     }
 
 }
