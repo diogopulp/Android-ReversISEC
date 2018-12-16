@@ -5,6 +5,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 public class Game extends BaseAdapter {
+
+    private Board board;
+    private Player p1, p2;
+
     @Override
     public int getCount() {
         return 0;
