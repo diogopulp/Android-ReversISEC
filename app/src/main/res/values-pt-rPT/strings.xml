@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ReversISEC</string>
+    <string name="title_activity_take_photo">Tirar Foto</string>
+    <string name="title_activity_game">Jogo</string>
+</resources>
