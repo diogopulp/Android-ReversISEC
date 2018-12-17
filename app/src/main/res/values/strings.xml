@@ -2,4 +2,7 @@
     <string name="app_name">ReversISEC</string>
     <string name="title_activity_take_photo">Take Photo</string>
     <string name="title_activity_game">Game</string>
+    <string name="drawer_open" translatable="false">Open</string>
+    <string name="drawer_close" translatable="false">Close</string>
+
 </resources>
