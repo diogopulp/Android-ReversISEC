@@ -48,7 +48,11 @@ public class GameActivity extends AppCompatActivity {
 
                 int position = gridView.pointToPosition(currentXPos, currentYPos);
 
-                Toast.makeText(GameActivity.this, Integer.toString(position), Toast.LENGTH_SHORT).show();
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    game.placePiece(position);
+                    Toast.makeText(GameActivity.this, Integer.toString(position), Toast.LENGTH_SHORT).show();
+                    game.notifyDataSetChanged();
+                }
 
                 return false;
             }

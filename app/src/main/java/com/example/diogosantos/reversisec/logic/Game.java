@@ -25,6 +25,8 @@ public class Game extends BaseAdapter {
     private Integer[] mThumbIds;
     private Context mContext;
 
+    private int previousPiece = 0;
+
     public Game(Context c, int height, int width){
 
         this.screenHeight = height;
@@ -39,26 +41,22 @@ public class Game extends BaseAdapter {
 
         mContext = c;
 
-        updateImages(this.board);
+        updateView(this.board);
 
     }
 
-    public void updateImages(Board board){
+    public void updateView(Board board){
 
         int k=0;
         for (int i=0; i< TAMROW; i++){
             for(int j = 0; j< TAMCOL; j++) {
-
                 mThumbIds[k] = board.get(i,j).getImg();
                 k++;
             }
-
         }
-
     }
 
     public Board getBoard(){
-
         return this.board;
     }
 
@@ -80,7 +78,7 @@ public class Game extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
         ImageView imageView;
-        updateImages(this.board);
+        updateView(this.board);
 
         double width, height;
 
@@ -183,12 +181,20 @@ public class Game extends BaseAdapter {
         row = this.positionToRow(position);
         col = this.positionToCol(position);
 
-        if (col >= 0 && col <= 8 && row != -1) // Check valid input
-            return false;
+        if (col >= 0 && col <= TAMCOL && row != -1) { // Check valid input
 
-        board.addPiece(row,col,R.drawable.ic_reversi_black);
+            if(previousPiece == R.drawable.ic_reversi_white || previousPiece == 0) {
+                board.addPiece(row, col, R.drawable.ic_reversi_black);
+                previousPiece = R.drawable.ic_reversi_black;
+            }else if(previousPiece == R.drawable.ic_reversi_black) {
+                board.addPiece(row, col, R.drawable.ic_reversi_white);
+                previousPiece = R.drawable.ic_reversi_white;
+            }
 
-        return true;
+            return true;
+        }
+
+        return false;
 
 
     }

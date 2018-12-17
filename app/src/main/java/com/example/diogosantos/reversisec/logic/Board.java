@@ -28,7 +28,7 @@ public class Board {
 
     public void addPiece(int row, int col, int pieceID){
 
-        board[row][col].setId(pieceID);
+        board[row][col].setImg(pieceID);
 
     }
 
