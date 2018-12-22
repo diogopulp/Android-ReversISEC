@@ -1,5 +1,7 @@
 package com.example.diogosantos.reversisec;
 
+import android.app.ProgressDialog;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -10,7 +12,36 @@ import android.widget.Toast;
 
 import com.example.diogosantos.reversisec.logic.Game;
 
+import java.io.BufferedReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+
 public class GameActivity extends AppCompatActivity {
+
+    public static final int SERVER = 0;
+    public static final int CLIENT = 1;
+    public static final int ME = 0;
+    public static final int OTHER = 1;
+
+
+    int mode = -1;
+
+    private static final int PORT = 8899;
+    private static final int PORTaux = 9988; // to test with emulators
+
+    ProgressDialog pd = null;
+
+    ServerSocket serverSocket = null;
+    Socket socketGame = null;
+    BufferedReader input;
+    PrintWriter output;
+    Handler procMsg = null;
+
+    boolean isSinglePlayer;
+
+
+    int height, width;
 
     //View
     private GridView gridView;
@@ -38,6 +69,8 @@ public class GameActivity extends AppCompatActivity {
 
         gridView = findViewById(R.id.playBoard);
         gridView.setAdapter(game);
+
+
 
         gridView.setOnTouchListener(new View.OnTouchListener() {
             @Override

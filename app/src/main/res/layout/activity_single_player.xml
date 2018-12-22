@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".singleplayer.SinglePlayerActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="vertical">
+        <!--<ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/chessicon"/>-->
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:paddingTop="20dp"
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp">
+
+        <Button
+            android:id="@+id/newGameBT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_newGame" />
+
+        <Button
+            android:id="@+id/loadGameBT"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_loadGame" />
+
+        <Button
+            android:id="@+id/options"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/app_options" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

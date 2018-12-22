@@ -1,16 +1,16 @@
 <resources>
-    <string name="app_name">ReversISEC</string>
+    <string name="app_name" translatable="false">ReversISEC</string>
     <string name="title_activity_take_photo">Take Photo</string>
     <string name="title_activity_game">Game</string>
-    <string name="drawer_open" translatable="false">Open</string>
-    <string name="drawer_close" translatable="false">Close</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
     <string name="login">Login</string>
-    <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_login">Sign In</string>
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
+    <string name="prompt_email" translatable="false">E-mail</string>
+    <string name="prompt_password" translatable="false">Password</string>
+    <string name="action_sign_in">Sign In or Register</string>
+    <string name="action_sign_in_short">Sign In</string>
     <string name="error_invalid_email">This email address is invalid</string>
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
@@ -18,5 +18,25 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="app_singleP">Single Player</string>
+    <string name="app_multiP">Multi Player</string>
+    <string name="app_highScores">Hight Scores</string>
+
+
+    <string name="app_player">Player</string>
+    <string name="app_createGame">Create Game</string>
+    <string name="app_joinGame">Join Game</string>
+    <string name="app_twoPlayerOneDevice">2 Player - 1 Device</string>
+    <string name="app_twoPlayerTwoDevice">2 Player - 2 Device</string>
+    <string name="app_newGame">New Game</string>
+    <string name="app_loadGame">Load game</string>
+    <string name="app_options">Options</string>
+    <string name="title_activity_main">Actividade principal</string>
+    <string name="app_Connection">Connection</string>
+    <string name="app_ip">Insert this IP on client device</string>
+    <string name="app_connectServer">Connecting to the server</string>
+    <string name="app_profileName">Name</string>
+    <string name="app_profileEmail">Email</string>
+    <string name="app_profileAge">Age</string>
 
 </resources>

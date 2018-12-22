@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">ReversISEC</string>
     <string name="title_activity_take_photo">Tirar Foto</string>
     <string name="title_activity_game">Jogo</string>
+    <string name="login">Entrar</string>
+    <string name="title_activity_login">Entrar</string>
+    <!-- Strings related to login -->
+    <string name="drawer_open">Abrir</string>
+    <string name="drawer_close">Fechar</string>
+    <string name="action_sign_in">Entrar ou Registar</string>
+    <string name="action_sign_in_short">Entrar</string>
+    <string name="error_invalid_email">Este endereço de e-mail é inválido</string>
+    <string name="error_invalid_password">Esta password é demasiado curta</string>
+    <string name="error_incorrect_password">Esta passoword está incorreta</string>
+    <string name="error_field_required">Este campo é obrigatório</string>
+    <string name="permission_rationale">As permissões de contacto são necessárias para o e-mail dado</string>
+
+
+    <string name="app_player" translatable="false">Jogador</string>
+    <string name="app_createGame">Criar Jogo</string>
+    <string name="app_joinGame">Procurar Jogo</string>
+    <string name="app_twoPlayerOneDevice">"2 Jogadores - 1 Despositivos "</string>
+    <string name="app_twoPlayerTwoDevice">"2 Jogadores - 2 Despositivos "</string>
+    <string name="app_newGame">Novo Jogo</string>
+    <string name="app_loadGame">Carregar Jogo Guardado</string>
+    <string name="app_options">Opções</string>
+    <string name="title_activity_main">Main Activity</string>
+    <string name="app_Connection">Conexão</string>
+    <string name="app_ip">Insira este IP no dispositivo cliente</string>
+    <string name="app_connectServer">Ligar ao servidor</string>
+    <string name="app_profileName">Nome</string>
+    <string name="app_profileEmail">Email</string>
+    <string name="app_profileAge">Idade</string>
+    <string name="app_singleP">Jogador VS PC</string>
+    <string name="app_multiP">Jogador VS Jogador</string>
+    <string name="app_highScores">Pontuações</string>
 </resources>
