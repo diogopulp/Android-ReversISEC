@@ -25,9 +25,13 @@ public class Game extends BaseAdapter {
     private Integer[] mThumbIds;
     private Context mContext;
 
+    private int currentPID;
+
     private int previousPiece = 0;
 
     public Game(Context c, int height, int width){
+
+        currentPID = 1;
 
         this.screenHeight = height;
         this.screenWidth = width;
@@ -124,6 +128,20 @@ public class Game extends BaseAdapter {
         return imageView;
     }
 
+    public void changePID(){
+
+        if (currentPID == 1)
+            currentPID = 2;
+        else
+            currentPID = 1;
+
+
+    }
+
+    public int getPid(){
+        return currentPID;
+    }
+
     public int positionToRow(int position){
 
         int row = 0;
@@ -174,6 +192,8 @@ public class Game extends BaseAdapter {
     }
 
     public boolean placePiece(int position){
+
+        changePID();
 
         int row = -1;
         int col = -1;

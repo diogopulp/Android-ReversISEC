@@ -18,10 +18,6 @@ import com.example.diogosantos.reversisec.singleplayer.SinglePlayerActivity;
 public class MainActivity extends AppCompatActivity {
 
     Button btn_take_photo;
-    Button btn_game;
-    Button btn_Mmltiplayer;
-
-
     private DrawerLayout nDrawerLayout;
     private ActionBarDrawerToggle nToggle;
 
@@ -35,26 +31,6 @@ public class MainActivity extends AppCompatActivity {
         nDrawerLayout.addDrawerListener(nToggle);
         nToggle.syncState();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        btn_take_photo = (Button)findViewById(R.id.btn_take_photo);
-        btn_take_photo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, TakePhotoActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        btn_game = (Button)findViewById(R.id.btn_game);
-        btn_game.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, GameActivity.class);
-                startActivity(intent);
-            }
-
-
-        });
 
         registerButtons();
         initNavigationDrawer();
@@ -90,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         register(R.id.singlePlayerGameBT);
         register(R.id.multiPlayerGameBT);
         register(R.id.highscoresBT);
+        register(R.id.btn_take_photo);
     }
 
     private void register(int buttonResourceId){
@@ -112,6 +89,15 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.highscoresBT:
                     Toast.makeText(getApplicationContext(),"Button is Working",Toast.LENGTH_LONG).show();
                     break;
+                case R.id.btn_take_photo:
+                    Intent intentC = new Intent(MainActivity.this, TakePhotoActivity.class);
+                    startActivity(intentC);
+                    break;
+                /*case R.id.btn_game:
+                    Intent intentD = new Intent(MainActivity.this, GameActivity.class);
+                    startActivity(intentD);
+                    break;
+                    */
                 case View.NO_ID:
                 default:
                     // TODO Auto-generated method stub
