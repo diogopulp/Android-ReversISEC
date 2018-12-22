@@ -1,6 +1,8 @@
 package com.example.diogosantos.reversisec;
 
+import android.content.ClipData;
 import android.content.Intent;
+import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,11 +10,13 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button btn_game;
     Button btn_take_photo;
+    Button btn_game;
+
 
     private DrawerLayout nDrawerLayout;
     private ActionBarDrawerToggle nToggle;
@@ -44,8 +48,31 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, GameActivity.class);
                 startActivity(intent);
             }
+
+
         });
-    }
+
+/*
+        public void initNavigationDrawer() {
+
+            NavigationView navigationView = findViewById(R.id.nav_login);
+            navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(MenuItem menuItem) {
+
+                    int id = menuItem.getItemId();
+
+                    switch (id){
+                        case R.id.nav_login:
+                            Toast.makeText(getApplicationContext(),"Name",Toast.LENGTH_SHORT).show();
+                            nDrawerLayout.closeDrawers();
+                            break;
+                    }
+                    return true;
+                }
+*/
+
+            }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
