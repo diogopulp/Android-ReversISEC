@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
-        <item android:id="@+id/nav_login"
-            android:icon="@android:drawable/ic_menu_add"
-            android:title="@string/login" />
+
         <item android:id="@+id/nav_item_two"
             android:icon="@android:drawable/ic_menu_agenda"
             android:title="Item 2" />
@@ -19,12 +17,13 @@
     </group>
     <item android:title="Title 1">
         <menu>
-            <item android:id="@+id/nav_item_six"
-                android:icon="@android:drawable/ic_menu_camera"
-                android:title="Item 6" />
-            <item android:id="@+id/nav_item_seven"
-                android:icon="@android:drawable/ic_menu_compass"
-                android:title="Item 7" />
+            <item android:id="@+id/nav_login"
+                android:icon="@android:drawable/ic_menu_add"
+                android:title="@string/login" />
+            <item
+                android:id="@+id/logout"
+                android:title="Logout"
+                android:icon="@mipmap/ic_launcher"/>
         </menu>
     </item>
 </menu>
