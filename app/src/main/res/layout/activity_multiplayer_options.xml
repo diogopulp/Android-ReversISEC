@@ -5,39 +5,86 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".multiplayer.MultiplayerOptionsActivity">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2"
-        android:orientation="vertical">
-        <!--<ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/chessicon"/>-->
-    </LinearLayout>
 
     <LinearLayout
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_weight="1"
-        android:paddingTop="20dp"
-        android:paddingLeft="50dp"
-        android:paddingRight="50dp">
+        android:weightSum="5"
+        android:layout_weight="1">
 
-
-        <Button
-            android:id="@+id/twoPlayer1DevBT"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/app_twoPlayerOneDevice" />
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <TextView
+                android:textSize="48dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="@string/app_name"
+                android:gravity="center|bottom"/>
+        </LinearLayout>
 
-        <Button
-            android:id="@+id/twoPlayer2DevBT"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/app_twoPlayerTwoDevice" />
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="2">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_weight="1"
+                android:gravity="bottom|center">
+                <ImageView
+                    android:background="@drawable/ic_reversi_big_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:background="@drawable/ic_reversi_big_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="top|center">
+                <ImageView
+                    android:background="@drawable/ic_reversi_big_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:background="@drawable/ic_reversi_big_white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_weight="2"
+            android:gravity="bottom">
+
+            <Button
+                android:id="@+id/twoPlayer1DevBT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_twoPlayerOneDevice" />
+
+            <Button
+                android:id="@+id/twoPlayer2DevBT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/app_twoPlayerTwoDevice" />
+
+
+        </LinearLayout>
 
     </LinearLayout>
 
