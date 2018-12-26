@@ -10,12 +10,17 @@ import android.widget.ImageView;
 
 import com.example.diogosantos.reversisec.R;
 
+import java.util.ArrayList;
+
 public class Game extends BaseAdapter {
 
     private static final int TAMROW = 8;
     private static final int TAMCOL = 8;
     private static final int BOARDSIZE = TAMCOL * TAMROW;
     private static final int TOTALPOINTSAVAILABLE = BOARDSIZE;
+
+    private static final int BLACK = R.drawable.ic_reversi_black;
+    private static final int WHITE = R.drawable.ic_reversi_white;
 
     private int screenHeight;
     private int screenWidth;
@@ -28,6 +33,7 @@ public class Game extends BaseAdapter {
     private int currentPID;
 
     private int previousPiece = 0;
+    private int currentPiece = 0;
 
     public Game(Context c, int height, int width){
 
@@ -128,15 +134,6 @@ public class Game extends BaseAdapter {
         return imageView;
     }
 
-    public void changePID(){
-
-        if (currentPID == 1)
-            currentPID = 2;
-        else
-            currentPID = 1;
-
-
-    }
 
     public int getPid(){
         return currentPID;
@@ -191,27 +188,39 @@ public class Game extends BaseAdapter {
 
     }
 
+    public void initGame(){
+
+        setStartUpPlayer(1);
+
+        // Startup pattern
+        placePieceAux(27,WHITE);
+        placePieceAux(28,BLACK);
+        placePieceAux(35,BLACK);
+        placePieceAux(36,WHITE);
+
+    }
+
     public boolean placePiece(int position){
 
-        changePID();
+        if (position == -1)
+            return false;
 
-        int row = -1;
-        int col = -1;
 
-        row = this.positionToRow(position);
-        col = this.positionToCol(position);
+        int row = this.positionToRow(position);
+        int col = this.positionToCol(position);
 
-        if (col >= 0 && col <= TAMCOL && row != -1) { // Check valid input
+        // Check if piece is placed inside the board bounds
+        if (col >= 0 && col <= TAMCOL && row >=0 && row <= TAMROW && col != -1 && row != -1) {
 
-            if(previousPiece == R.drawable.ic_reversi_white || previousPiece == 0) {
-                board.addPiece(row, col, R.drawable.ic_reversi_black);
-                previousPiece = R.drawable.ic_reversi_black;
-            }else if(previousPiece == R.drawable.ic_reversi_black) {
-                board.addPiece(row, col, R.drawable.ic_reversi_white);
-                previousPiece = R.drawable.ic_reversi_white;
+            // Check if the selected place is not yet occupied
+            if(board.get(row,col).getImg()==0) {
+                changePID();
+
+                if(checkPieceProximity(row,col)) {
+                    board.addPiece(row, col, currentPiece);
+                    return true;
+                }
             }
-
-            return true;
         }
 
         return false;
@@ -222,4 +231,163 @@ public class Game extends BaseAdapter {
     public static int getTotalPointsAvailabe() {
         return TOTALPOINTSAVAILABLE;
     }
+
+    public void setStartUpPlayer(int PID){
+        if(PID == 1){
+            this.currentPID = 1;
+            this.currentPiece = BLACK;
+        }else if(PID == 2){
+            this.currentPID = 2;
+            this.currentPiece = WHITE;
+        }
+    }
+
+    // Aux Private Functions
+
+    private boolean checkPieceProximity(int row, int col){
+
+        ArrayList <Integer> positions;
+        positions = new ArrayList<>(8);
+
+        // Top Left Corner
+        if(row == 0 && col == 0){
+            positions.add(board.get(row+1,col).getId());
+            positions.add(board.get(row,col+1).getId());
+            positions.add(board.get(row+1,col+1).getId());
+
+            return checkForPieces(positions);
+        }
+
+        // Top Right Corner
+        if(row == 0 && col == TAMCOL-1){
+            positions.add(board.get(row+1,col).getId());
+            positions.add(board.get(row,col-1).getId());
+            positions.add(board.get(row+1,col-1).getId());
+
+            return checkForPieces(positions);
+        }
+
+        // Bottom Left Corner
+        if(row == TAMROW-1 && col == 0){
+            positions.add(board.get(row-1,col).getId());
+            positions.add(board.get(row,col+1).getId());
+            positions.add(board.get(row-1,col+1).getId());
+
+            return checkForPieces(positions);
+        }
+
+        // Botom Right Corner
+        if(row == TAMROW-1 && col == TAMCOL-1){
+            positions.add(board.get(row-1,col).getId());
+            positions.add(board.get(row,col-1).getId());
+            positions.add(board.get(row-1,col-1).getId());
+
+            return checkForPieces(positions);
+        }
+
+        // Top Row
+        if(row == 0 && col != 0 && col != TAMCOL-1) {
+            positions.add(board.get(row, col - 1).getId());
+            positions.add(board.get(row + 1, col - 1).getId());
+            positions.add(board.get(row + 1, col).getId());
+            positions.add(board.get(row + 1, col + 1).getId());
+            positions.add(board.get(row, col + 1).getId());
+
+            return checkForPieces(positions);
+        }
+
+        // Bottom Row
+        if(row == TAMROW-1 && col != 0 && col != TAMCOL-1) {
+            positions.add(board.get(row, col - 1).getId());
+            positions.add(board.get(row - 1, col - 1).getId());
+            positions.add(board.get(row - 1, col).getId());
+            positions.add(board.get(row - 1, col + 1).getId());
+            positions.add(board.get(row, col + 1).getId());
+
+            return checkForPieces(positions);
+        }
+
+        // Left Col
+        if(row != 0 && col == 0 && row != TAMROW-1) {
+            positions.add(board.get(row - 1, col).getId());
+            positions.add(board.get(row - 1, col + 1).getId());
+            positions.add(board.get(row, col + 1).getId());
+            positions.add(board.get(row + 1, col + 1).getId());
+            positions.add(board.get(row + 1, col).getId());
+
+            return checkForPieces(positions);
+        }
+
+        // Right Col
+        if(row != 0 && col == TAMCOL-1 && row != TAMROW-1) {
+            positions.add(board.get(row - 1, col).getId());
+            positions.add(board.get(row - 1, col - 1).getId());
+            positions.add(board.get(row, col - 1).getId());
+            positions.add(board.get(row + 1, col - 1).getId());
+            positions.add(board.get(row + 1, col).getId());
+
+            return checkForPieces(positions);
+        }
+
+        // Center
+        if(row != 0 && row != TAMROW-1 && col!= 0 && col != TAMCOL-1) {
+            positions.add(board.get(row - 1, col - 1).getId());
+            positions.add(board.get(row - 1, col).getId());
+            positions.add(board.get(row - 1, col + 1).getId());
+            positions.add(board.get(row, col + 1).getId());
+            positions.add(board.get(row + 1, col + 1).getId());
+            positions.add(board.get(row + 1, col).getId());
+            positions.add(board.get(row + 1, col - 1).getId());
+            positions.add(board.get(row, col - 1).getId());
+
+            return checkForPieces(positions);
+        }
+
+        return false;
+    }
+    
+    private boolean checkForPieces(ArrayList <Integer> arrayList){
+
+        for(int i = 0; i< arrayList.size(); i++){
+            if(arrayList.get(i) != 0)
+                return true;
+        }
+        return false;
+    }
+
+    private void placePieceAux(int position, int color){
+
+        int row = this.positionToRow(position);
+        int col = this.positionToCol(position);
+
+        if (col >= 0 && col <= TAMCOL && row >=0 && row <= TAMROW && col != -1 && row != -1) { // Check valid input
+
+            board.addPiece(row, col, color);
+        }
+    }
+
+    private void changePieces(){
+
+        if(previousPiece == BLACK || previousPiece == 0) {
+            previousPiece = WHITE;
+            currentPiece = BLACK;
+        }else{
+            previousPiece = BLACK;
+            currentPiece = WHITE;
+        }
+    }
+
+    private void changePID(){
+
+        if(currentPiece == BLACK)
+            currentPID = 2;
+        if(currentPiece == WHITE)
+            currentPID = 1;
+
+        changePieces();
+    }
+
+
+
+
 }

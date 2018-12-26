@@ -289,6 +289,8 @@ public class GameActivity extends AppCompatActivity {
     private void launchSinglePlayer() {
 
         setupAdapter();
+        game.initGame();
+        game.notifyDataSetChanged();
 
         gridView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -301,7 +303,6 @@ public class GameActivity extends AppCompatActivity {
 
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     game.placePiece(position);
-                    Toast.makeText(GameActivity.this, Integer.toString(position), Toast.LENGTH_SHORT).show();
                     game.notifyDataSetChanged();
                 }
 
