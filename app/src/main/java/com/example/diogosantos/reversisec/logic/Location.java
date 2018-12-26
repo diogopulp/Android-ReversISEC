@@ -14,9 +14,6 @@ public class Location {
         setID(0);
     }
 
-    public int getImg() {
-        return img;
-    }
 
     public void setImg(int img) {
         this.img = img;
@@ -30,6 +27,8 @@ public class Location {
     public int getId() {
         return id;
     }
+
+    public int getImg(){return img;}
 
     // Private Aux Methods
     private void setID(int id) {

@@ -21,6 +21,7 @@ public class Game extends BaseAdapter {
 
     private static final int BLACK = R.drawable.ic_reversi_black;
     private static final int WHITE = R.drawable.ic_reversi_white;
+    private static final int EMPTY = 0;
 
     private int screenHeight;
     private int screenWidth;
@@ -31,8 +32,6 @@ public class Game extends BaseAdapter {
     private Context mContext;
 
     private int currentPID;
-
-    private int previousPiece = 0;
     private int currentPiece = 0;
 
     public Game(Context c, int height, int width){
@@ -210,14 +209,16 @@ public class Game extends BaseAdapter {
         int col = this.positionToCol(position);
 
         // Check if piece is placed inside the board bounds
-        if (col >= 0 && col <= TAMCOL && row >=0 && row <= TAMROW && col != -1 && row != -1) {
+        if (col >= 0 && col <= TAMCOL && row >= 0 && row <= TAMROW && col != -1 && row != -1) {
 
             // Check if the selected place is not yet occupied
-            if(board.get(row,col).getImg()==0) {
-                changePID();
+            if(board.get(row,col).getImg() ==  EMPTY) {
 
+                // Check if exists al least one piece close by
                 if(checkPieceProximity(row,col)) {
+
                     board.addPiece(row, col, currentPiece);
+                    changePID();
                     return true;
                 }
             }
@@ -233,6 +234,7 @@ public class Game extends BaseAdapter {
     }
 
     public void setStartUpPlayer(int PID){
+
         if(PID == 1){
             this.currentPID = 1;
             this.currentPiece = BLACK;
@@ -321,7 +323,30 @@ public class Game extends BaseAdapter {
         // Right Col
         if(row != 0 && col == TAMCOL-1 && row != TAMROW-1) {
             positions.add(board.get(row - 1, col).getId());
-            positions.add(board.get(row - 1, col - 1).getId());
+            //positions.add(board.get(row - 1, col - 1).getId());
+            if(checkPosition(board.get(row - 1, col - 1).getId())){
+
+                int j = col-1;
+                int y = col-1;
+
+                for (int i = row-1; i> 0; i--){
+
+                    if(board.get(i,j).getId() == currentPID){
+
+                        for (int x = row-1; x> i; x--) {
+                            board.addPiece(x, y, currentPiece);
+                            if(y>j)
+                                y--;
+                        }
+                        return true;
+
+
+                    }
+                    j--;
+
+                }
+
+            }
             positions.add(board.get(row, col - 1).getId());
             positions.add(board.get(row + 1, col - 1).getId());
             positions.add(board.get(row + 1, col).getId());
@@ -331,7 +356,32 @@ public class Game extends BaseAdapter {
 
         // Center
         if(row != 0 && row != TAMROW-1 && col!= 0 && col != TAMCOL-1) {
-            positions.add(board.get(row - 1, col - 1).getId());
+
+            if(checkPosition(board.get(row - 1, col - 1).getId())){
+
+                int j = col-1;
+                int y = col-1;
+
+                for (int i = row-1; i> 0; i--){
+
+                        if(board.get(i,j).getId() == currentPID){
+
+                            for (int x = row-1; x> i; x--) {
+                                board.addPiece(x, y, currentPiece);
+                                if(y>j)
+                                    y--;
+                            }
+                            return true;
+
+
+                        }
+                        j--;
+
+                }
+
+            }
+
+            //positions.add(board.get(row - 1, col - 1).getId());
             positions.add(board.get(row - 1, col).getId());
             positions.add(board.get(row - 1, col + 1).getId());
             positions.add(board.get(row, col + 1).getId());
@@ -345,11 +395,18 @@ public class Game extends BaseAdapter {
 
         return false;
     }
+
+    private boolean checkPosition(int piece){
+        if(piece != EMPTY && piece != currentPID)
+            return true;
+        return false;
+
+    }
     
     private boolean checkForPieces(ArrayList <Integer> arrayList){
 
         for(int i = 0; i< arrayList.size(); i++){
-            if(arrayList.get(i) != 0)
+            if(arrayList.get(i) != EMPTY && arrayList.get(i) != currentPID)
                 return true;
         }
         return false;
@@ -368,21 +425,20 @@ public class Game extends BaseAdapter {
 
     private void changePieces(){
 
-        if(previousPiece == BLACK || previousPiece == 0) {
-            previousPiece = WHITE;
+        if(currentPID == 1){
             currentPiece = BLACK;
-        }else{
-            previousPiece = BLACK;
+        }else if(currentPID == 2){
             currentPiece = WHITE;
         }
     }
 
     private void changePID(){
 
-        if(currentPiece == BLACK)
+        if(currentPID == 1) {
             currentPID = 2;
-        if(currentPiece == WHITE)
+        }else{
             currentPID = 1;
+        }
 
         changePieces();
     }
