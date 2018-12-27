@@ -34,7 +34,7 @@ public class SinglePlayerActivity extends AppCompatActivity {
             switch (v.getId()) {
                 case R.id.newGameBT:
                     Intent intent = new Intent(SinglePlayerActivity.this,GameActivity.class);
-                    intent.putExtra("GAME_TYPE", true);
+                    intent.putExtra("GAME_SINGLE", true);
                     startActivity(intent);
                     break;
                 case R.id.loadGameBT:

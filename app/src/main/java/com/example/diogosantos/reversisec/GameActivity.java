@@ -53,6 +53,7 @@ public class GameActivity extends AppCompatActivity {
     Handler procMsg = null;
 
     boolean isSinglePlayer;
+    boolean isMultiPlayerDevice;
 
     TextView myTextViewP1;
     TextView myTextViewP2;
@@ -85,14 +86,13 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
         if (getIntent().getExtras() != null) {
-            if (this.getIntent().getExtras().containsKey("GAME_TYPE")) {
-                isSinglePlayer = this.getIntent().getExtras().getBoolean("GAME_TYPE");
-            } else {
-                Log.e("GameActivity", "Missing game type");
-                finish();
+            if (this.getIntent().getExtras().containsKey("GAME_SINGLE")) {
+                isSinglePlayer = this.getIntent().getExtras().getBoolean("GAME_SINGLE");
+            } else if (this.getIntent().getExtras().containsKey("GAME_MULTI_ONE_DEVICE")) {
+                isMultiPlayerDevice = this.getIntent().getExtras().getBoolean("GAME_MULTI_ONE_DEVICE");
             }
-            if (this.getIntent().getExtras().containsKey("GAME_MODE")) {
-                mode = this.getIntent().getExtras().getInt("GAME_MODE");
+            if (this.getIntent().getExtras().containsKey("GAME_MULTI_MODE")) {
+                mode = this.getIntent().getExtras().getInt("GAME_MULTI_MODE");
             }
         } else {
             Log.e("GameActivity", "Extras are NULL");
@@ -103,6 +103,8 @@ public class GameActivity extends AppCompatActivity {
 
         if (isSinglePlayer) {
             launchSinglePlayer();
+        } else if (isMultiPlayerDevice) {
+            launchMultiPlayerOneDevice();
         } else {
             ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
@@ -124,7 +126,7 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (!isSinglePlayer) {
+        if (!isSinglePlayer && !isMultiPlayerDevice) {
             if (mode == SERVER)
                 server();
             else  // CLIENT
@@ -309,8 +311,35 @@ public class GameActivity extends AppCompatActivity {
                     if(!game.placePiece(position))
                         Toast.makeText(GameActivity.this, "Local Inválido", Toast.LENGTH_SHORT).show();
                     game.notifyDataSetChanged();
+                    //changePlayerViews ();
                 }
+                return false;
+            }
+        });
 
+    }
+
+    private void launchMultiPlayerOneDevice() {
+
+        setupAdapter();
+        game.initGame();
+        game.notifyDataSetChanged();
+
+        gridView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+
+                int currentXPos = (int) event.getX();
+                int currentYPos = (int) event.getY();
+
+                position = gridView.pointToPosition(currentXPos, currentYPos);
+
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    if(!game.placePiece(position))
+                        Toast.makeText(GameActivity.this, "Local Inválido", Toast.LENGTH_SHORT).show();
+                    game.notifyDataSetChanged();
+                    changePlayerViews ();
+                }
                 return false;
             }
         });
@@ -341,11 +370,9 @@ public class GameActivity extends AppCompatActivity {
                 }
 
                 game.notifyDataSetChanged();
-                //changePlayer(game.);
+                changePlayerViews ();
                 return event.getAction() == MotionEvent.ACTION_MOVE;
-
             }
-
 
         });
 

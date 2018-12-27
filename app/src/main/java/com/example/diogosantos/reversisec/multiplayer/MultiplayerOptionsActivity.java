@@ -33,7 +33,7 @@ public class MultiplayerOptionsActivity extends AppCompatActivity {
             switch (v.getId()) {
                 case R.id.twoPlayer1DevBT:
                     Intent intentA = new Intent(MultiplayerOptionsActivity.this,GameActivity.class);
-                    intentA.putExtra("GAME_TYPE", true);
+                    intentA.putExtra("GAME_MULTI_ONE_DEVICE", true);
                     startActivity(intentA);
                     break;
                 case R.id.twoPlayer2DevBT:

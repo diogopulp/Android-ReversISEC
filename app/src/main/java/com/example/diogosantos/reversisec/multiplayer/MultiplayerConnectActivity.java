@@ -49,8 +49,8 @@ public class MultiplayerConnectActivity extends AppCompatActivity {
     public void onServer(View v)
     {
         Intent intent=new Intent(this, GameActivity.class);
-        intent.putExtra("GAME_MODE", GameActivity.SERVER);
-        intent.putExtra("GAME_TYPE", false);
+        intent.putExtra("GAME_MULTI_MODE", GameActivity.SERVER);
+        //intent.putExtra("GAME_TYPE", false);
 
         startActivity(intent);
     }
@@ -58,8 +58,8 @@ public class MultiplayerConnectActivity extends AppCompatActivity {
     public void onClient(View v)
     {
         Intent intent=new Intent(this, GameActivity.class);
-        intent.putExtra("GAME_MODE", GameActivity.CLIENT);
-        intent.putExtra("GAME_TYPE", false);
+        intent.putExtra("GAME_MULTI_MODE", GameActivity.CLIENT);
+        //intent.putExtra("GAME_TYPE", false);
         startActivity(intent);
     }
 
