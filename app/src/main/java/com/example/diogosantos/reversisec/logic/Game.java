@@ -133,7 +133,6 @@ public class Game extends BaseAdapter {
         return imageView;
     }
 
-
     public int getPid(){
         return currentPID;
     }

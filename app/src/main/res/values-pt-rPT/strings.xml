@@ -35,4 +35,6 @@
     <string name="app_multiP">Jogador VS Jogador</string>
     <string name="app_highScores">Pontuações</string>
     <string name="or_text">Ou</string>
+    <string name="app_Camera">Câmera</string>
+    <string name="app_credits">Créditos</string>
 </resources>

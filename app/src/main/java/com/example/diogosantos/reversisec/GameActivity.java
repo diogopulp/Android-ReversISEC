@@ -18,6 +18,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.diogosantos.reversisec.logic.Game;
@@ -57,6 +58,10 @@ public class GameActivity extends AppCompatActivity {
     TextView myTextViewP2;
     TextView myTextViewP1number;
     TextView myTextViewP2number;
+
+    ImageView myImageViewP1;
+    ImageView myImageViewP2;
+
 
     DisplayMetrics displayMetrics;
 
@@ -281,7 +286,6 @@ public class GameActivity extends AppCompatActivity {
         deviceHeight = displayMetrics.heightPixels;
         deviceWidth = displayMetrics.widthPixels;
         game = new Game(this, deviceHeight, deviceWidth);
-
         gridView = findViewById(R.id.playBoard);
         gridView.setAdapter(game);
     }
@@ -334,15 +338,6 @@ public class GameActivity extends AppCompatActivity {
 
                     game.placePiece(position);
                     sendMessage(position);
-
-                    /*if (result == -2) // erro, posiçao nao valida
-                        Toast.makeText(GameActivity.this, "Movimento inválido!", Toast.LENGTH_SHORT).show(); // TODO Adicionar à biblioteca de strings
-                    else if (result == -1) {
-                        oldPosition = position;
-                    } else {
-                        //if (oldPosition != -1)
-                        sendMessage(oldPosition, position);
-                    }*/
                 }
 
                 game.notifyDataSetChanged();
@@ -355,6 +350,7 @@ public class GameActivity extends AppCompatActivity {
         });
 
     }
+
     void sendMessage(final int position) {
 
         Thread t = new Thread(new Runnable() {
@@ -373,11 +369,38 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+    private void changePlayerViews (){
+        if(game.getPid()==1){
+            myImageViewP1.setVisibility(View.VISIBLE);
+            myImageViewP2.setVisibility(View.INVISIBLE);
+            myTextViewP1.setVisibility(View.VISIBLE);
+            myTextViewP2.setVisibility(View.INVISIBLE);
+            myTextViewP1number.setVisibility(View.VISIBLE);
+            myTextViewP2number.setVisibility(View.INVISIBLE);
+            return;
+        }
+        else {
+            myImageViewP1.setVisibility(View.INVISIBLE);
+            myImageViewP2.setVisibility(View.VISIBLE);
+            myTextViewP1.setVisibility(View.INVISIBLE);
+            myTextViewP2.setVisibility(View.VISIBLE);
+            myTextViewP1number.setVisibility(View.INVISIBLE);
+            myTextViewP2number.setVisibility(View.VISIBLE);
+            return;
+        }
+    }
+
     public void prepareViews(){
         myTextViewP1 = (TextView) findViewById(R.id.player1TV);
         myTextViewP2 = (TextView) findViewById(R.id.player2TV);
         myTextViewP1number = (TextView) findViewById(R.id.player1TVnumber);
         myTextViewP2number = (TextView) findViewById(R.id.player2TVnumber);
+
+        myImageViewP1 = (ImageView)findViewById(R.id.player1img);
+        myImageViewP2 = (ImageView)findViewById(R.id.player2img);
+
+        myImageViewP1.setVisibility(View.VISIBLE);
+        myImageViewP2.setVisibility(View.INVISIBLE);
         myTextViewP1.setVisibility(View.VISIBLE);
         myTextViewP2.setVisibility(View.INVISIBLE);
         myTextViewP1number.setVisibility(View.VISIBLE);

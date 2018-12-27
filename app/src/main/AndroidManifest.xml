@@ -50,6 +50,7 @@
         <activity android:name=".multiplayer.MultiplayerConnectActivity" />
         <activity android:name=".multiplayer.MultiplayerOptionsActivity" />
         <activity android:name=".singleplayer.SinglePlayerActivity" />
+        <activity android:name=".CreditsActivity"></activity>
     </application>
 
 </manifest>

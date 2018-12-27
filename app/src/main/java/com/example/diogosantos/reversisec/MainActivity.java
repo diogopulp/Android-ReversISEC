@@ -1,12 +1,11 @@
 package com.example.diogosantos.reversisec;
 
-import android.content.ClipData;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -76,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         register(R.id.singlePlayerGameBT);
         register(R.id.multiPlayerGameBT);
         register(R.id.highscoresBT);
-        register(R.id.btn_take_photo);
+        register(R.id.creditsBT);
     }
 
     private void register(int buttonResourceId){
@@ -99,15 +98,10 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.highscoresBT:
                     Toast.makeText(getApplicationContext(),"Button is Working",Toast.LENGTH_LONG).show();
                     break;
-                case R.id.btn_take_photo:
-                    Intent intentC = new Intent(MainActivity.this, TakePhotoActivity.class);
+                case R.id.creditsBT:
+                    Intent intentC = new Intent(MainActivity.this, CreditsActivity.class);
                     startActivity(intentC);
                     break;
-                /*case R.id.btn_game:
-                    Intent intentD = new Intent(MainActivity.this, GameActivity.class);
-                    startActivity(intentD);
-                    break;
-                    */
                 case View.NO_ID:
                 default:
                     // TODO Auto-generated method stub
