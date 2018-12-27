@@ -251,126 +251,265 @@ public class Game extends BaseAdapter {
         ArrayList <Integer> positions;
         positions = new ArrayList<>(8);
 
+        boolean res = false;
+
         // Top Left Corner
         if(row == 0 && col == 0){
-            positions.add(board.get(row+1,col).getId());
-            positions.add(board.get(row,col+1).getId());
-            if(checkPosition(board.get(row + 1, col + 1).getId()))
-                fillDiagonalFrom_BOTTOMRIGHT_to_TOPLEFT(row,col);
 
-            //return checkForPieces(positions);
-            return true;
+            if(checkPosition(board.get(row + 1, col + 1).getId())) {
+                fillDiagonalFrom_BOTTOMRIGHT_to_TOPLEFT(row, col);
+                res = true;
+            }
+
+            if(checkPosition(board.get(row + 1, col).getId())){
+                fillColumnFrom_TOP_to_BOTTOM(row, col);
+                res = true;
+            }
+
+
+            if(checkPosition(board.get(row, col + 1).getId())){
+                fillRowFrom_LEFT_to_RIGHT(row,col);
+                res = true;
+            }
+
+            return res;
         }
 
         // Top Right Corner
         if(row == 0 && col == TAMCOL-1){
-            positions.add(board.get(row+1,col).getId());
-            positions.add(board.get(row,col-1).getId());
-            positions.add(board.get(row+1,col-1).getId());
 
-            //return checkForPieces(positions);
-            return true;
+            if(checkPosition(board.get(row+1,col-1).getId())){
+                fillDiagonalFrom_TOPRIGHT_to_BOTTOMLEFT(row,col);
+                res = true;
+            }
+
+            if(checkPosition(board.get(row + 1, col).getId())){
+                fillColumnFrom_TOP_to_BOTTOM(row, col);
+                res = true;
+            }
+
+            if(checkPosition(board.get(row, col - 1).getId())){
+                fillRowFrom_RIGHT_to_LEFT(row,col);
+                res = true;
+            }
+
+            return res;
         }
 
         // Bottom Left Corner
         if(row == TAMROW-1 && col == 0){
-            positions.add(board.get(row-1,col).getId());
-            positions.add(board.get(row,col+1).getId());
-            positions.add(board.get(row-1,col+1).getId());
 
-            //return checkForPieces(positions);
-            return true;
+            if(checkPosition(board.get(row - 1, col + 1).getId())){
+                fillDiagonalFrom_BOTTOMLEFT_to_TOPRIGHT(row,col);
+                res = true;
+            }
+
+            if(checkPosition(board.get(row - 1, col).getId())){
+                fillColumnFrom_BOTTOM_to_TOP(row,col);
+                res = true;
+            }
+
+            if(checkPosition(board.get(row, col + 1).getId())){
+                fillRowFrom_LEFT_to_RIGHT(row,col);
+                res = true;
+            }
+
+            return res;
         }
 
         // Botom Right Corner
         if(row == TAMROW-1 && col == TAMCOL-1){
-            positions.add(board.get(row-1,col).getId());
-            positions.add(board.get(row,col-1).getId());
 
-
-            if(checkPosition(board.get(row - 1, col - 1).getId()))
+            if(checkPosition(board.get(row - 1, col - 1).getId())){
                 fillDiagonalFrom_TOPLEFT_to_BOTTOMRIGHT(row,col);
+                res = true;
+            }
 
-            //return checkForPieces(positions);
-            return true;
+            if(checkPosition(board.get(row - 1, col).getId())){
+                fillColumnFrom_BOTTOM_to_TOP(row,col);
+                res = true;
+            }
+
+            if(checkPosition(board.get(row, col - 1).getId())){
+                fillRowFrom_RIGHT_to_LEFT(row,col);
+                res = true;
+            }
+
+            return res;
         }
 
         // Top Row
         if(row == 0 && col != 0 && col != TAMCOL-1) {
-            positions.add(board.get(row, col - 1).getId());
-            positions.add(board.get(row + 1, col - 1).getId());
-            positions.add(board.get(row + 1, col).getId());
-            if(checkPosition(board.get(row + 1, col + 1).getId()))
-                fillDiagonalFrom_BOTTOMRIGHT_to_TOPLEFT(row,col);
-            positions.add(board.get(row, col + 1).getId());
 
-            //return checkForPieces(positions);
-            return true;
+            if(checkPosition(board.get(row+1,col-1).getId())){
+                fillDiagonalFrom_TOPRIGHT_to_BOTTOMLEFT(row,col);
+                res = true;
+            }
+
+            if(checkPosition(board.get(row + 1, col + 1).getId())){
+                fillDiagonalFrom_BOTTOMRIGHT_to_TOPLEFT(row,col);
+                res = true;
+            }
+
+            if(checkPosition(board.get(row + 1, col).getId())){
+                fillColumnFrom_TOP_to_BOTTOM(row, col);
+                res = true;
+            }
+
+            if(checkPosition(board.get(row, col + 1).getId())){
+                fillRowFrom_LEFT_to_RIGHT(row,col);
+                res = true;
+            }
+
+            if(checkPosition(board.get(row, col - 1).getId())){
+                fillRowFrom_RIGHT_to_LEFT(row,col);
+                res = true;
+            }
+
+            return res;
+
         }
 
         // Bottom Row
         if(row == TAMROW-1 && col != 0 && col != TAMCOL-1) {
-            positions.add(board.get(row, col - 1).getId());
 
-            if(checkPosition(board.get(row - 1, col - 1).getId()))
+            if(checkPosition(board.get(row - 1, col - 1).getId())){
                 fillDiagonalFrom_TOPLEFT_to_BOTTOMRIGHT(row,col);
+                res = true;
+            }
 
-            positions.add(board.get(row - 1, col).getId());
-            positions.add(board.get(row - 1, col + 1).getId());
-            positions.add(board.get(row, col + 1).getId());
+            if(checkPosition(board.get(row - 1, col + 1).getId())){
+                fillDiagonalFrom_BOTTOMLEFT_to_TOPRIGHT(row,col);
+                res = true;
+            }
 
-            //return checkForPieces(positions);
-            return true;
+            if(checkPosition(board.get(row - 1, col).getId())){
+                fillColumnFrom_BOTTOM_to_TOP(row,col);
+                res = true;
+            }
+
+            if(checkPosition(board.get(row, col + 1).getId())){
+                fillRowFrom_LEFT_to_RIGHT(row,col);
+                res = true;
+            }
+
+            if(checkPosition(board.get(row, col - 1).getId())){
+                fillRowFrom_RIGHT_to_LEFT(row,col);
+                res = true;
+            }
+
+            return res;
         }
 
         // Left Col
         if(row != 0 && col == 0 && row != TAMROW-1) {
-            positions.add(board.get(row - 1, col).getId());
-            positions.add(board.get(row - 1, col + 1).getId());
-            positions.add(board.get(row, col + 1).getId());
-            if(checkPosition(board.get(row + 1, col + 1).getId()))
-                fillDiagonalFrom_BOTTOMRIGHT_to_TOPLEFT(row,col);
-            positions.add(board.get(row + 1, col).getId());
 
-            //return checkForPieces(positions);
-            return true;
+
+            if(checkPosition(board.get(row + 1, col + 1).getId())){
+                fillDiagonalFrom_BOTTOMRIGHT_to_TOPLEFT(row,col);
+                res = true;
+            }
+
+            if(checkPosition(board.get(row - 1, col + 1).getId())){
+                fillDiagonalFrom_BOTTOMLEFT_to_TOPRIGHT(row,col);
+                res = true;
+            }
+
+            if(checkPosition(board.get(row + 1, col).getId())){
+                fillColumnFrom_TOP_to_BOTTOM(row, col);
+                res = true;
+            }
+
+            if(checkPosition(board.get(row - 1, col).getId())){
+                fillColumnFrom_BOTTOM_to_TOP(row,col);
+                res = true;
+            }
+
+            if(checkPosition(board.get(row, col + 1).getId())){
+                fillRowFrom_LEFT_to_RIGHT(row,col);
+                res = true;
+            }
+
+            return res;
+
         }
 
         // Right Col
         if(row != 0 && col == TAMCOL-1 && row != TAMROW-1) {
-            positions.add(board.get(row - 1, col).getId());
 
-            if(checkPosition(board.get(row - 1, col - 1).getId()))
+            if(checkPosition(board.get(row - 1, col - 1).getId())){
                 fillDiagonalFrom_TOPLEFT_to_BOTTOMRIGHT(row,col);
+                res = true;
+            }
 
-            positions.add(board.get(row, col - 1).getId());
-            positions.add(board.get(row + 1, col - 1).getId());
-            positions.add(board.get(row + 1, col).getId());
+            if(checkPosition(board.get(row+1,col-1).getId())){
+                fillDiagonalFrom_TOPRIGHT_to_BOTTOMLEFT(row,col);
+                res = true;
+            }
 
-            //return checkForPieces(positions);
-            return true;
+            if(checkPosition(board.get(row + 1, col).getId())){
+                fillColumnFrom_TOP_to_BOTTOM(row, col);
+                res = true;
+            }
+
+            if(checkPosition(board.get(row - 1, col).getId())){
+                fillColumnFrom_BOTTOM_to_TOP(row,col);
+                res = true;
+            }
+
+            if(checkPosition(board.get(row, col - 1).getId())){
+                fillRowFrom_RIGHT_to_LEFT(row,col);
+                res = true;
+            }
+
+            return res;
         }
 
         // Center
         if(row != 0 && row != TAMROW-1 && col!= 0 && col != TAMCOL-1) {
 
-            if(checkPosition(board.get(row + 1, col + 1).getId()))
+
+            if(checkPosition(board.get(row + 1, col + 1).getId())){
                 fillDiagonalFrom_BOTTOMRIGHT_to_TOPLEFT(row,col);
+                res = true;
+            }
 
-            if(checkPosition(board.get(row - 1, col - 1).getId()))
+            if(checkPosition(board.get(row - 1, col - 1).getId())){
                 fillDiagonalFrom_TOPLEFT_to_BOTTOMRIGHT(row,col);
+                res = true;
+            }
 
-            if(checkPosition(board.get(row + 1, col - 1).getId()))
+            if(checkPosition(board.get(row + 1, col - 1).getId())){
                 fillDiagonalFrom_TOPRIGHT_to_BOTTOMLEFT(row,col);
+                res = true;
+            }
 
-            positions.add(board.get(row - 1, col).getId());
-            positions.add(board.get(row - 1, col + 1).getId());
-            positions.add(board.get(row, col + 1).getId());
-            positions.add(board.get(row + 1, col).getId());
-            positions.add(board.get(row, col - 1).getId());
+            if(checkPosition(board.get(row - 1, col + 1).getId())){
+                fillDiagonalFrom_BOTTOMLEFT_to_TOPRIGHT(row,col);
+                res = true;
+            }
 
-            return true;
-            //return checkForPieces(positions);
+            if(checkPosition(board.get(row + 1, col).getId())){
+                fillColumnFrom_TOP_to_BOTTOM(row, col);
+                res = true;
+            }
+
+            if(checkPosition(board.get(row - 1, col).getId())){
+                fillColumnFrom_BOTTOM_to_TOP(row,col);
+                res = true;
+            }
+
+            if(checkPosition(board.get(row, col + 1).getId())){
+                fillRowFrom_LEFT_to_RIGHT(row,col);
+                res = true;
+            }
+
+            if(checkPosition(board.get(row, col - 1).getId())){
+                fillRowFrom_RIGHT_to_LEFT(row,col);
+                res = true;
+            }
+
+            return res;
         }
 
         return false;
@@ -440,8 +579,11 @@ public class Game extends BaseAdapter {
 
                     board.addPiece(x, y, currentPiece);
 
-                    if(y<j-1 && y < TAMROW-1 && y< TAMCOL-1)
+                    if(y<j-1 && y < TAMROW-1 && y< TAMCOL-1) {
                         y++;
+                    }else{
+                        return;
+                    }
                 }
 
             }
@@ -468,20 +610,145 @@ public class Game extends BaseAdapter {
 
             if(board.get(i,j).getId() == currentPID){
 
+                // Fill With Pieces
                 for (int x = row + 1; x< i; x++) {
 
                     board.addPiece(x, y, currentPiece);
 
-                    if(y < j-1 && y <= 0 && y < TAMROW-1)
+                    if(y > j-1 && y >= 0 && y < TAMROW-1) {
                         y--;
+                    }else{
+                        return;
+                    }
                 }
 
             }
             // Decrease the value of columns
-            if(j <= 0 && j< TAMROW-1) {
+            if(j >= 0 && j< TAMROW-1) {
                 j--;
             }else{
                 return;
+            }
+
+        }
+
+    }
+
+    private void fillDiagonalFrom_BOTTOMLEFT_to_TOPRIGHT(int row, int col){
+
+        int j, y;
+
+        j = col + 1;
+        y = col + 1;
+
+
+        // Decrease the value of rows
+        for (int i = row-1; i< TAMROW; i--){
+
+            if(board.get(i,j).getId() == currentPID){
+
+                // Fill With Pieces
+                for (int x = row - 1; x> i; x--) {
+
+                    board.addPiece(x, y, currentPiece);
+
+                    if(y < j+1 && y >= 0 && y < TAMROW-1) {
+                        y++;
+                    }else{
+                        return;
+                    }
+                }
+
+            }
+            // Increase the value of columns
+            if(j >= 0 && j< TAMROW-1 && j< TAMCOL-1) {
+                j++;
+            }else{
+                return;
+            }
+
+        }
+
+    }
+
+    private void fillColumnFrom_TOP_to_BOTTOM(int row, int col){
+
+        // Increase the value of rows
+        for (int i = row+1; i< TAMROW; i++){
+
+            if(board.get(i,col).getId() == currentPID){
+
+                // Fill With Pieces
+                for (int x = row + 1; x< i; x++) {
+
+                    board.addPiece(x, col, currentPiece);
+
+                }
+                return;
+
+            }
+
+        }
+
+    }
+
+    private void fillColumnFrom_BOTTOM_to_TOP(int row, int col){
+
+        // Decrease the value of rows
+        for (int i = row-1; i> 0; i--){
+
+            if(board.get(i,col).getId() == currentPID){
+
+                // Fill With Pieces
+                for (int x = row - 1; x> i; x--) {
+
+                    board.addPiece(x, col, currentPiece);
+
+                }
+                return;
+
+            }
+
+        }
+
+    }
+
+    private void fillRowFrom_LEFT_to_RIGHT(int row, int col){
+
+        // Increase the value of rows
+        for (int i = col+1; i< TAMCOL; i++){
+
+            if(board.get(row,i).getId() == currentPID){
+
+                // Fill With Pieces
+                for (int x = col + 1; x< i; x++) {
+
+                    board.addPiece(row, x, currentPiece);
+
+                }
+                return;
+
+            }
+
+        }
+
+    }
+
+    private void fillRowFrom_RIGHT_to_LEFT(int row, int col){
+
+        // Decrease the value of rows
+        for (int i = col-1; i> 0; i--){
+
+            if(board.get(row,i).getId() == currentPID){
+
+                // Fill With Pieces
+                for (int x = col - 1; x> i; x--) {
+
+                    board.addPiece(row, x, currentPiece);
+
+                }
+                return;
+
             }
 
         }
