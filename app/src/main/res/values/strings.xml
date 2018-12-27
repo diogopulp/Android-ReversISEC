@@ -48,5 +48,6 @@
     <string name="or_text">Or</string>
     <string name="app_Camera">Camera</string>
     <string name="app_credits">Credits</string>
+    <string name="app_CPU" translatable="false">CPU</string>
 
 </resources>

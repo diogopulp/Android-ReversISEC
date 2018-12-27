@@ -43,12 +43,12 @@
             android:paddingBottom="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Arquiteturas Moveis"
+            android:text="Arquiteturas Móveis"
             android:textStyle="bold"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Prof. Alvaro Santos" />
+            android:text="Prof. Álvaro Santos" />
         <ImageView
             android:paddingTop="25dp"
             android:layout_width="wrap_content"

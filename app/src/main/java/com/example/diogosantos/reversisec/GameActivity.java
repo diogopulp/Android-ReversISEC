@@ -59,7 +59,7 @@ public class GameActivity extends AppCompatActivity {
     TextView myTextViewP2;
     TextView myTextViewP1number;
     TextView myTextViewP2number;
-
+    TextView myTextViewCPU;
     ImageView myImageViewP1;
     ImageView myImageViewP2;
 
@@ -109,7 +109,7 @@ public class GameActivity extends AppCompatActivity {
             ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
             if (networkInfo == null || !networkInfo.isConnected()) {
-                Toast.makeText(this, R.string.app_ip, Toast.LENGTH_LONG).show(); // TODO Meter isto na biblioteca de strings
+                Toast.makeText(this, R.string.app_ip, Toast.LENGTH_LONG).show();
                 finish();
                 return;
             }
@@ -311,7 +311,7 @@ public class GameActivity extends AppCompatActivity {
                     if(!game.placePiece(position))
                         Toast.makeText(GameActivity.this, "Local Inválido", Toast.LENGTH_SHORT).show();
                     game.notifyDataSetChanged();
-                    //changePlayerViews ();
+                    changePlayerOnSingleVsCPU();
                 }
                 return false;
             }
@@ -338,7 +338,7 @@ public class GameActivity extends AppCompatActivity {
                     if(!game.placePiece(position))
                         Toast.makeText(GameActivity.this, "Local Inválido", Toast.LENGTH_SHORT).show();
                     game.notifyDataSetChanged();
-                    changePlayerViews ();
+                    changePlayerOnMultiplayer ();
                 }
                 return false;
             }
@@ -370,7 +370,7 @@ public class GameActivity extends AppCompatActivity {
                 }
 
                 game.notifyDataSetChanged();
-                changePlayerViews ();
+                changePlayerOnMultiplayer();
                 return event.getAction() == MotionEvent.ACTION_MOVE;
             }
 
@@ -396,36 +396,15 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    private void changePlayerViews (){
-        if(game.getPid()==1){
-            myImageViewP1.setVisibility(View.VISIBLE);
-            myImageViewP2.setVisibility(View.INVISIBLE);
-            myTextViewP1.setVisibility(View.VISIBLE);
-            myTextViewP2.setVisibility(View.INVISIBLE);
-            myTextViewP1number.setVisibility(View.VISIBLE);
-            myTextViewP2number.setVisibility(View.INVISIBLE);
-            return;
-        }
-        else {
-            myImageViewP1.setVisibility(View.INVISIBLE);
-            myImageViewP2.setVisibility(View.VISIBLE);
-            myTextViewP1.setVisibility(View.INVISIBLE);
-            myTextViewP2.setVisibility(View.VISIBLE);
-            myTextViewP1number.setVisibility(View.INVISIBLE);
-            myTextViewP2number.setVisibility(View.VISIBLE);
-            return;
-        }
-    }
 
     public void prepareViews(){
         myTextViewP1 = (TextView) findViewById(R.id.player1TV);
         myTextViewP2 = (TextView) findViewById(R.id.player2TV);
+        myTextViewCPU = (TextView)findViewById(R.id.CPUTV);
         myTextViewP1number = (TextView) findViewById(R.id.player1TVnumber);
         myTextViewP2number = (TextView) findViewById(R.id.player2TVnumber);
-
         myImageViewP1 = (ImageView)findViewById(R.id.player1img);
         myImageViewP2 = (ImageView)findViewById(R.id.player2img);
-
         myImageViewP1.setVisibility(View.VISIBLE);
         myImageViewP2.setVisibility(View.INVISIBLE);
         myTextViewP1.setVisibility(View.VISIBLE);
@@ -436,6 +415,52 @@ public class GameActivity extends AppCompatActivity {
         gridView.setAdapter(game);
     }
 
+    private void changePlayerOnMultiplayer (){
+        if(game.getPid()==1){
+            myImageViewP1.setVisibility(View.VISIBLE);
+            myImageViewP2.setVisibility(View.INVISIBLE);
+            myTextViewP1.setVisibility(View.VISIBLE);
+            myTextViewP2.setVisibility(View.INVISIBLE);
+            myTextViewP1number.setVisibility(View.VISIBLE);
+            myTextViewP2number.setVisibility(View.INVISIBLE);
+            myTextViewCPU.setVisibility(View.INVISIBLE);
+            return;
+        }
+        else {
+            myImageViewP1.setVisibility(View.INVISIBLE);
+            myImageViewP2.setVisibility(View.VISIBLE);
+            myTextViewP1.setVisibility(View.INVISIBLE);
+            myTextViewP2.setVisibility(View.VISIBLE);
+            myTextViewP1number.setVisibility(View.INVISIBLE);
+            myTextViewP2number.setVisibility(View.VISIBLE);
+            myTextViewCPU.setVisibility(View.INVISIBLE);
+            return;
+        }
+    }
+
+    private void changePlayerOnSingleVsCPU (){
+        if(game.getPid()==1){
+            myImageViewP1.setVisibility(View.VISIBLE);
+            myImageViewP2.setVisibility(View.INVISIBLE);
+            myTextViewP1.setVisibility(View.VISIBLE);
+            myTextViewP2.setVisibility(View.INVISIBLE);
+            myTextViewP1number.setVisibility(View.INVISIBLE);
+            myTextViewP2number.setVisibility(View.INVISIBLE);
+            myTextViewCPU.setVisibility(View.INVISIBLE);
+            return;
+        }
+        else {
+            myImageViewP1.setVisibility(View.INVISIBLE);
+            myImageViewP2.setVisibility(View.VISIBLE);
+            myTextViewP1.setVisibility(View.INVISIBLE);
+            myTextViewP2.setVisibility(View.INVISIBLE);
+            myTextViewP1number.setVisibility(View.INVISIBLE);
+            myTextViewP2number.setVisibility(View.INVISIBLE);
+            myTextViewCPU.setVisibility(View.VISIBLE);
+            return;
+        }
+    }
+/*
     public void changePlayer(int id) {
 
         if (id == 2) {
@@ -452,6 +477,8 @@ public class GameActivity extends AppCompatActivity {
             return;
         }
     }
+    */
+
 
     public void vibrate() {
 
