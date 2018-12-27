@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    // navigation drawer buttons
+
 
     public void initNavigationDrawer() {
 
@@ -51,7 +53,15 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (id){
                     case R.id.nav_login:
-                        Toast.makeText(getApplicationContext(),"Name",Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                        startActivity(intent);
+                        //Toast.makeText(getApplicationContext(),"Name",Toast.LENGTH_SHORT).show();
+                        nDrawerLayout.closeDrawers();
+                        break;
+                    case R.id.nav_camera:
+                        Intent intentB = new Intent(MainActivity.this,TakePhotoActivity.class);
+                        startActivity(intentB);
+                        //Toast.makeText(getApplicationContext(),"Name",Toast.LENGTH_SHORT).show();
                         nDrawerLayout.closeDrawers();
                         break;
                 }
