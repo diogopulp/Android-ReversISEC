@@ -302,7 +302,8 @@ public class GameActivity extends AppCompatActivity {
                 position = gridView.pointToPosition(currentXPos, currentYPos);
 
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    game.placePiece(position);
+                    if(!game.placePiece(position))
+                        Toast.makeText(GameActivity.this, "Local Inválido", Toast.LENGTH_SHORT).show();
                     game.notifyDataSetChanged();
                 }
 
