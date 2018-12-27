@@ -34,4 +34,5 @@
     <string name="app_singleP">Jogador VS PC</string>
     <string name="app_multiP">Jogador VS Jogador</string>
     <string name="app_highScores">Pontuações</string>
+    <string name="or_text">Ou</string>
 </resources>
