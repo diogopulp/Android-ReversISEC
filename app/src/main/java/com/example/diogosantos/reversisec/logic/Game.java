@@ -599,6 +599,7 @@ public class Game extends BaseAdapter {
 
     private void fillDiagonalFrom_TOPRIGHT_to_BOTTOMLEFT(int row, int col){
 
+        // TODO Encontrar bug neste pedaço de lógica
         int j, y;
 
         j = col - 1;
@@ -624,7 +625,7 @@ public class Game extends BaseAdapter {
 
             }
             // Decrease the value of columns
-            if(j >= 0 && j< TAMROW-1) {
+            if(j >= 0 && j< TAMCOL-1) {
                 j--;
             }else{
                 return;

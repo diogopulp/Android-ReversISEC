@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "197611808755",
+    "firebase_url": "https://reversisec.firebaseio.com",
+    "project_id": "reversisec",
+    "storage_bucket": "reversisec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:197611808755:android:267da582737b2029",
+        "android_client_info": {
+          "package_name": "com.example.diogosantos.reversisec"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "197611808755-b14nv6v3m0cou4rbintv12r3b0qnd8vb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.diogosantos.reversisec",
+            "certificate_hash": "dc59c51ef6b7e46f22e939411cb9bc44beeb698e"
+          }
+        },
+        {
+          "client_id": "197611808755-50am6c0hcq9kdarfg0s95a01311nqnqo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAVq8Ok3AGhs_oxkkQJYk4KyMtG6c1Qec4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "197611808755-50am6c0hcq9kdarfg0s95a01311nqnqo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
