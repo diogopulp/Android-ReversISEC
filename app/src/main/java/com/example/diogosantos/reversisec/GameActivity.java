@@ -7,10 +7,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.method.DigitsKeyListener;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -21,6 +21,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.diogosantos.reversisec.logic.Game;
 
 import java.io.BufferedReader;
@@ -29,8 +30,9 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.TimeUnit;
 
-import static com.example.diogosantos.reversisec.utils.Utils.*;
+import static com.example.diogosantos.reversisec.utils.Utils.getLocalIpAddress;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -98,9 +100,7 @@ public class GameActivity extends AppCompatActivity {
             Log.e("GameActivity", "Extras are NULL");
             finish();
         }
-
         //Lança cada tipo de jogo
-
         if (isSinglePlayer) {
             launchSinglePlayer();
         } else if (isMultiPlayerDevice) {
@@ -300,7 +300,7 @@ public class GameActivity extends AppCompatActivity {
 
         gridView.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public boolean onTouch(View view, MotionEvent event) {
+            public boolean onTouch(View view, MotionEvent event) { // espera que o utilizador selecione uma peça
 
                 int currentXPos = (int) event.getX();
                 int currentYPos = (int) event.getY();
@@ -310,13 +310,20 @@ public class GameActivity extends AppCompatActivity {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     if(!game.placePiece(position))
                         Toast.makeText(GameActivity.this, "Local Inválido", Toast.LENGTH_SHORT).show();
+                    else {
+                        while (true) {
+                            if (game.placePiece(positionForCPU()))
+                                break;
+                        }
+                    }
+
                     game.notifyDataSetChanged();
                     changePlayerOnSingleVsCPU();
                 }
+                //metodo Joga CPU
                 return false;
             }
         });
-
     }
 
     private void launchMultiPlayerOneDevice() {
@@ -460,25 +467,10 @@ public class GameActivity extends AppCompatActivity {
             return;
         }
     }
-/*
-    public void changePlayer(int id) {
 
-        if (id == 2) {
-            myTextViewP1.setVisibility(View.INVISIBLE);
-            myTextViewP2.setVisibility(View.VISIBLE);
-            myTextViewP1number.setVisibility(View.INVISIBLE);
-            myTextViewP2number.setVisibility(View.VISIBLE);
-            return;
-        } else if (id == 1) {
-            myTextViewP2.setVisibility(View.INVISIBLE);
-            myTextViewP1.setVisibility(View.VISIBLE);
-            myTextViewP2number.setVisibility(View.INVISIBLE);
-            myTextViewP1number.setVisibility(View.VISIBLE);
-            return;
-        }
+    private int positionForCPU (){
+        return (int)(Math.random() * 63 + 0);
     }
-    */
-
 
     public void vibrate() {
 

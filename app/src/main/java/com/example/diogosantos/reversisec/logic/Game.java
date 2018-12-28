@@ -18,7 +18,6 @@ public class Game extends BaseAdapter {
     private static final int TAMCOL = 8;
     private static final int BOARDSIZE = TAMCOL * TAMROW;
     private static final int TOTALPOINTSAVAILABLE = BOARDSIZE;
-
     private static final int BLACK = R.drawable.ic_reversi_black;
     private static final int WHITE = R.drawable.ic_reversi_white;
     private static final int EMPTY = 0;
@@ -785,8 +784,6 @@ public class Game extends BaseAdapter {
 
         changePieces();
     }
-
-
 
 
 }
