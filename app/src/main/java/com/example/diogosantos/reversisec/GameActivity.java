@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.PersistableBundle;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.text.method.DigitsKeyListener;
@@ -40,6 +41,9 @@ public class GameActivity extends AppCompatActivity {
     public static final int CLIENT = 1;
     public static final int ME = 0;
     public static final int OTHER = 1;
+
+    static final String GAME_STATE_KEY = "game";
+    //String mGameState;
 
     int mode = -1;
 
@@ -82,10 +86,32 @@ public class GameActivity extends AppCompatActivity {
     private int deviceHeight;
     private int deviceWidth;
 
+
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+
+
+        //outState.putParcelableArrayList(GAME_STATE_KEY,game.getBoard().getLoctionBoard());
+
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        //mTextView.setText(savedInstanceState.getString(TEXT_VIEW_KEY));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        if (savedInstanceState != null) {
+            game = savedInstanceState.getParcelable(GAME_STATE_KEY);
+        }
+
         setContentView(R.layout.activity_game);
+
+
 
         if (getIntent().getExtras() != null) {
             if (this.getIntent().getExtras().containsKey("GAME_SINGLE")) {
@@ -312,8 +338,11 @@ public class GameActivity extends AppCompatActivity {
                         Toast.makeText(GameActivity.this, "Local Inválido", Toast.LENGTH_SHORT).show();
                     else {
                         while (true) {
-                            if (game.placePiece(positionForCPU()))
+                            if (game.placePiece(positionForCPU())) {
+
+
                                 break;
+                            }
                         }
                     }
 
@@ -324,6 +353,15 @@ public class GameActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private void fazPip(){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+            }
+        }, 1000);
     }
 
     private void launchMultiPlayerOneDevice() {

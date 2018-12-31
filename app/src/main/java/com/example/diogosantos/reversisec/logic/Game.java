@@ -1,15 +1,20 @@
 package com.example.diogosantos.reversisec.logic;
 
 import android.content.Context;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.Log;
+import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.example.diogosantos.reversisec.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Game extends BaseAdapter {
@@ -24,6 +29,8 @@ public class Game extends BaseAdapter {
 
     private int screenHeight;
     private int screenWidth;
+
+
 
     private Board board;
     private Player p1, p2;
@@ -53,6 +60,7 @@ public class Game extends BaseAdapter {
 
     }
 
+
     public void updateView(Board board){
 
         int k=0;
@@ -66,6 +74,10 @@ public class Game extends BaseAdapter {
 
     public Board getBoard(){
         return this.board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
     }
 
     @Override
@@ -86,25 +98,50 @@ public class Game extends BaseAdapter {
     @Override
     public View getView(int position, View view, ViewGroup viewGroup) {
         ImageView imageView;
+
         updateView(this.board);
 
         double width, height;
 
-        if(screenHeight <= 900) { // Low DPI
-            width = screenWidth / 9;
-            height = screenHeight / 16.5;
-        }else if(screenHeight > 900 && screenHeight < 1300){ // Medium DPI
-            width = screenWidth / 9;
-            height = screenHeight / 14.5;
-        }else if(screenHeight >= 1300 && screenHeight < 1800){ // High DPI
-            width = screenWidth / 9;
-            height = screenHeight / 14.3;
-        }else if(screenHeight >= 1800 && screenHeight < 2000){
-            width = screenWidth / 9;
-            height = screenHeight / 14.8;
+        final int screenOrientation = ((WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getOrientation();
+
+        if(screenOrientation == Surface.ROTATION_0 || screenOrientation == Surface.ROTATION_180 ) {
+
+            if (screenHeight <= 900) { // Low DPI
+                width = screenWidth / 9;
+                height = screenHeight / 16.5;
+            } else if (screenHeight > 900 && screenHeight < 1300) { // Medium DPI
+                width = screenWidth / 9;
+                height = screenHeight / 14.5;
+            } else if (screenHeight >= 1300 && screenHeight < 1800) { // High DPI
+                width = screenWidth / 9;
+                height = screenHeight / 14.3;
+            } else if (screenHeight >= 1800 && screenHeight < 2000) {
+                width = screenWidth / 9;
+                height = screenHeight / 14.8;
+            } else {
+                width = screenWidth / 9;
+                height = screenHeight / 13.5;
+            }
         }else{
-            width = screenWidth / 9;
-            height = screenHeight / 13.5;
+            if (screenHeight <= 900) { // Low DPI
+                width = screenWidth / 16.5;
+                height = screenHeight / 9;
+            } else if (screenHeight > 900 && screenHeight < 1300) { // Medium DPI
+                width = screenWidth / 14.5;
+                height = screenHeight / 9;
+            } else if (screenHeight >= 1300 && screenHeight < 1800) { // High DPI
+                width = screenWidth / 14.3;
+                height = screenHeight / 9;
+            } else if (screenHeight >= 1800 && screenHeight < 2000) {
+                width = screenWidth / 14.8;
+                height = screenHeight / 9;
+            } else {
+                width = screenWidth / 13.5;
+                height = screenHeight / 9;
+            }
+
+
         }
 
         if (view == null) {
@@ -536,14 +573,16 @@ public class Game extends BaseAdapter {
         j = col - 1;
         y = col - 1;
 
+        // Verify if is any piece with the same color as "currentPID"
         for (int i = row-1; i>= 0; i--){
 
+            // If true, fill with "currentPID" color
             if(board.get(i,j).getId() == currentPID){
 
                 for (int x = row-1; x> i; x--) {
 
                     board.addPiece(x, y, currentPiece);
-                    if(y>j && y >0 && y <= TAMROW && y<= TAMCOL) {
+                    if(y>=j && y >0 && y <= TAMROW && y<= TAMCOL) {
                         y--;
                     }else{
                         return;
@@ -784,6 +823,5 @@ public class Game extends BaseAdapter {
 
         changePieces();
     }
-
 
 }

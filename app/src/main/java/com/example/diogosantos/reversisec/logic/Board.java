@@ -20,6 +20,9 @@ public class Board {
             }
         }
     }
+    public Location[][] getLoctionBoard(){
+        return board;
+    }
 
     public Location get(int row, int col)
     {
