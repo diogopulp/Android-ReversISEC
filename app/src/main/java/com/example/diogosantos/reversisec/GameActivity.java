@@ -25,6 +25,8 @@ import android.widget.Toast;
 
 import com.example.diogosantos.reversisec.logic.Game;
 
+import org.json.JSONStringer;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -91,7 +93,7 @@ public class GameActivity extends AppCompatActivity {
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
 
         //outState.putParcelableArrayList(GAME_STATE_KEY,game.getBoard().getLoctionBoard());
-        outState.putParcelableArray(GAME_STATE_KEY, game.getBoard().getTransitionBoard());
+        //outState.putParcelableArray(GAME_STATE_KEY, game.getBoard().getTransitionBoard());
 
         super.onSaveInstanceState(outState, outPersistentState);
     }
@@ -106,7 +108,7 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         if (savedInstanceState != null) {
-            game = savedInstanceState.getParcelable(GAME_STATE_KEY);
+            //game = savedInstanceState.getParcelable(GAME_STATE_KEY);
         }
 
         setContentView(R.layout.activity_game);
@@ -114,11 +116,13 @@ public class GameActivity extends AppCompatActivity {
         if (getIntent().getExtras() != null) {
             if (this.getIntent().getExtras().containsKey("GAME_SINGLE")) {
                 isSinglePlayer = this.getIntent().getExtras().getBoolean("GAME_SINGLE");
+
             } else if (this.getIntent().getExtras().containsKey("GAME_MULTI_ONE_DEVICE")) {
                 isMultiPlayerDevice = this.getIntent().getExtras().getBoolean("GAME_MULTI_ONE_DEVICE");
-            }
-            if (this.getIntent().getExtras().containsKey("GAME_MULTI_MODE")) {
+
+            } else if (this.getIntent().getExtras().containsKey("GAME_MULTI_MODE")) {
                 mode = this.getIntent().getExtras().getInt("GAME_MULTI_MODE");
+
             }
         } else {
             Log.e("GameActivity", "Extras are NULL");
@@ -137,10 +141,6 @@ public class GameActivity extends AppCompatActivity {
                 finish();
                 return;
             }
-
-            Intent intent = getIntent();
-            // if (intent != null)
-            // mode = intent.getIntExtra("mode", SERVER);
 
             procMsg = new Handler();
             launchMultiPlayer();
@@ -191,6 +191,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     void server() {
+
         String ip = getLocalIpAddress();
         pd = new ProgressDialog(this);
         pd.setMessage(getString(R.string.app_ip) + "\n(IP: " + ip + ")"); // @TODO Meter isto na biblioteca de strings
@@ -249,23 +250,22 @@ public class GameActivity extends AppCompatActivity {
 
                 while (!Thread.currentThread().isInterrupted()) {
                     String read = input.readLine();
-                    String[] separated = read.split(",");
+                    //String[] separated = read.split(",");
                     //final int oldPosition = Integer.parseInt(separated[0]);
                     //final int nextPosition = Integer.parseInt(separated[1]);
-                    Log.d("Multiplayer", "received a move: " + position);
+                    position = Integer.parseInt(read);
+                    Log.d("Multiplayer", "Received a move: " + position + "READ:" + read);
 
                     procMsg.post(new Runnable() {
                         @Override
                         public void run() {
                             //moveOtherPlayer(checkMove);
                             //adapter.getBoard().movePiece(oldPosition, nextPosition);
-                            game.initGame();
                             game.placePiece(position);
                             //Tem de ser chamado na UI Thread!
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-
                                     game.notifyDataSetChanged();
                                 }
                             });
@@ -313,15 +313,16 @@ public class GameActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         deviceHeight = displayMetrics.heightPixels;
         deviceWidth = displayMetrics.widthPixels;
-        game = new Game(this, deviceHeight, deviceWidth);
+
         gridView = findViewById(R.id.playBoard);
+        game = new Game(this, deviceHeight, deviceWidth);
+        game.initGame();
         gridView.setAdapter(game);
     }
 
     private void launchSinglePlayer() {
 
         setupAdapter();
-        game.initGame();
         game.notifyDataSetChanged();
 
         gridView.setOnTouchListener(new View.OnTouchListener() {
@@ -367,7 +368,6 @@ public class GameActivity extends AppCompatActivity {
     private void launchMultiPlayerOneDevice() {
 
         setupAdapter();
-        game.initGame();
         game.notifyDataSetChanged();
 
         gridView.setOnTouchListener(new View.OnTouchListener() {
@@ -394,6 +394,8 @@ public class GameActivity extends AppCompatActivity {
     private void launchMultiPlayer() {
 
         setupAdapter();
+        game.notifyDataSetChanged();
+
 
         gridView.setOnTouchListener(new View.OnTouchListener() {
 
@@ -410,8 +412,15 @@ public class GameActivity extends AppCompatActivity {
 
                     vibrate();
 
-                    game.placePiece(position);
-                    sendMessage(position);
+                    // Se for um movimento válido
+                    if(game.placePiece(position)) {
+
+                        //String json = "{position: " + position + "}";
+
+                        sendMessage(position);
+                    }else{
+                        Toast.makeText(GameActivity.this, "Local inválido!", Toast.LENGTH_SHORT).show();
+                    }
                 }
 
                 game.notifyDataSetChanged();
@@ -430,6 +439,7 @@ public class GameActivity extends AppCompatActivity {
             public void run() {
                 try {
                     Log.d("Multiplayer", "Sending a move: " + position);
+
                     output.println(position);
                     output.flush();
                 } catch (Exception e) {
