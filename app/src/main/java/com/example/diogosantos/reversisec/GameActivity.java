@@ -90,8 +90,8 @@ public class GameActivity extends AppCompatActivity {
     @Override
     public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
 
-
         //outState.putParcelableArrayList(GAME_STATE_KEY,game.getBoard().getLoctionBoard());
+        outState.putParcelableArray(GAME_STATE_KEY, game.getBoard().getTransitionBoard());
 
         super.onSaveInstanceState(outState, outPersistentState);
     }
@@ -110,8 +110,6 @@ public class GameActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_game);
-
-
 
         if (getIntent().getExtras() != null) {
             if (this.getIntent().getExtras().containsKey("GAME_SINGLE")) {
@@ -196,7 +194,7 @@ public class GameActivity extends AppCompatActivity {
         String ip = getLocalIpAddress();
         pd = new ProgressDialog(this);
         pd.setMessage(getString(R.string.app_ip) + "\n(IP: " + ip + ")"); // @TODO Meter isto na biblioteca de strings
-        pd.setTitle(R.string.app_Connection);                          //
+        pd.setTitle(R.string.app_Connection);                             //
         pd.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
@@ -223,7 +221,6 @@ public class GameActivity extends AppCompatActivity {
                     commThread.start();
 
                     // Início do Jogo
-
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -256,16 +253,19 @@ public class GameActivity extends AppCompatActivity {
                     //final int oldPosition = Integer.parseInt(separated[0]);
                     //final int nextPosition = Integer.parseInt(separated[1]);
                     Log.d("Multiplayer", "received a move: " + position);
+
                     procMsg.post(new Runnable() {
                         @Override
                         public void run() {
                             //moveOtherPlayer(checkMove);
                             //adapter.getBoard().movePiece(oldPosition, nextPosition);
+                            game.initGame();
                             game.placePiece(position);
                             //Tem de ser chamado na UI Thread!
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
+
                                     game.notifyDataSetChanged();
                                 }
                             });
@@ -286,7 +286,7 @@ public class GameActivity extends AppCompatActivity {
 
     void clientDlg() {
         final EditText edtIP = new EditText(this);
-        edtIP.setText("192.168.0.111"); // most places default ip
+        edtIP.setText("192.168.1.183"); // most places default ip
         edtIP.setKeyListener(DigitsKeyListener.getInstance("0123456789."));
         AlertDialog ad = new AlertDialog.Builder(this).setTitle(" Client")
                 .setMessage("Server IP").setView(edtIP)

@@ -1,8 +1,11 @@
 package com.example.diogosantos.reversisec.logic;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.example.diogosantos.reversisec.R;
 
-public class Location {
+public class Location implements Parcelable {
 
     private int img;
     private int id; // 0 Empty, 1 P1, 2 P2
@@ -39,5 +42,27 @@ public class Location {
             this.id = id;
         }
 
+    }
+
+    /*public static final Parcelable.Creator<Location> CREATOR = new Parcelable.Creator<Location>() {
+
+        public Location createFromParcel(Parcel in) {
+            return new Location(in);
+        }
+
+        public Location[] newArray(int size) {
+            return new Location[][size];
+        }
+    };*/
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    // Save object
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(img);
     }
 }
