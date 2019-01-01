@@ -37,4 +37,6 @@
     <string name="or_text">Ou</string>
     <string name="app_Camera">Câmera</string>
     <string name="app_credits">Créditos</string>
+    <string name="invalid_location">Local inválido</string>
+    <string name="wait_for_your_turn">Espere pela sua vez</string>
 </resources>

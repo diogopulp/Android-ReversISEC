@@ -44,6 +44,8 @@ public class GameActivity extends AppCompatActivity {
     public static final int ME = 0;
     public static final int OTHER = 1;
 
+    int PID;
+
     static final String GAME_STATE_KEY = "game";
     //String mGameState;
 
@@ -169,6 +171,7 @@ public class GameActivity extends AppCompatActivity {
                     socketGame = new Socket(strIP, Port);
 
                     // Início do Jogo
+                    PID = 2;
 
 
                 } catch (Exception e) {
@@ -222,6 +225,7 @@ public class GameActivity extends AppCompatActivity {
                     commThread.start();
 
                     // Início do Jogo
+                    PID = 1;
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -412,14 +416,20 @@ public class GameActivity extends AppCompatActivity {
 
                     vibrate();
 
-                    // Se for um movimento válido
-                    if(game.placePiece(position)) {
+                    // Se for a vez do jogador
+                    if(game.getPid() == PID) {
 
-                        //String json = "{position: " + position + "}";
+                        // Se for um movimento válido
+                        if (game.placePiece(position)) {
 
-                        sendMessage(position);
+                            //String json = "{position: " + position + "}";
+
+                            sendMessage(position);
+                        } else {
+                            Toast.makeText(GameActivity.this, R.string.invalid_location, Toast.LENGTH_SHORT).show();
+                        }
                     }else{
-                        Toast.makeText(GameActivity.this, "Local inválido!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(GameActivity.this, R.string.wait_for_your_turn, Toast.LENGTH_SHORT).show();
                     }
                 }
 
